@@ -1,0 +1,79 @@
+.header{
+    width: 1920px;
+    margin:0 auto;
+}
+
+.header-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F8F9FA;
+    font-family: 'Gilroy-Light', sans-serif;
+    color:#000;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.language-list__item__text{
+  margin-bottom: 10px;
+}
+
+.language-list-container{
+    width: 96px;
+    height: 43px;
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-list-item__login{
+    display: flex;
+    gap:20px;
+    align-items: center;
+    margin-right: 90px;
+}
+.header-list-login__link{
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+.header-list-login__link:hover{
+  color: #414040;
+}
+
+
+
+/* Drop Down */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.open .dropdown-options {
+  display: block;
+  position: absolute;
+  top: 100%;
+}
+
+.dropdown-options {
+  display: none; /* Зміни: меню за замовчуванням сховане */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-options li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-options li:hover {
+  background-color: #f0f0f0;
+}

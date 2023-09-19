@@ -1,0 +1,25 @@
+.footer{
+    background-color: #F8F9FA;
+}
+
+
+.footer-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-list__item__terms{
+    color: #00B1B6;
+    font-family: 'Gilroy-Light', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    line-height: normal;
+}
+.footer-list__item__terms:hover{
+    color:#81c1c4
+}
+.footer-list__social{
+    display: flex;
+    gap: 35px;
+    margin-right: 90px;
+}
