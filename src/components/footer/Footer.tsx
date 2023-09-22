@@ -1,6 +1,6 @@
 import React from 'react'
 import './style.css'
-import logo from '../../assets/main-page/header/header-logo.svg';
+import logo from '../../assets/logo.svg';
 import facebook from '../../assets/main-page/footer/social-icon/facebook.svg';
 import instagram from '../../assets/main-page/footer/social-icon/instagram.svg';
 import whatsApp from '../../assets/main-page/footer/social-icon/whatsapp.svg';

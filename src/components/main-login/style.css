@@ -1,0 +1,26 @@
+.login-container{
+    width: 1200px;
+    height: 1180px;
+    background-color:#fff;
+    margin: 0 auto;
+}
+.login-email-text{
+    display: block;
+}
+
+.login-wrapper{
+    width: 585px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 30px;
+    margin-top: 180px;
+}
+.center{
+    margin:0 auto;
+}
+
+input:focus {
+    box-shadow: 0 0 5px rgba(0, 177, 182); 
+}

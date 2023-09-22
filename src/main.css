@@ -26,3 +26,9 @@ font-family: 'Gilroy-Regular', sans-serif; */
     background:#000;
     color:#fff;    
 }
+.container{
+    margin:0 auto;
+    background-image: url(/src/assets/background.jpg);
+    width: 1920px;
+    height: 1180px;
+}

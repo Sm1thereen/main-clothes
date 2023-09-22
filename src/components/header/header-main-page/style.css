@@ -59,7 +59,8 @@
 .open .dropdown-options {
   display: block;
   position: absolute;
-  top: 100%;
+  left: 150%;
+  top: 0%;
 }
 
 .dropdown-options {
@@ -70,6 +71,7 @@
 }
 
 .dropdown-options li {
+  border: 1px solid;
   padding: 10px;
   cursor: pointer;
 }
@@ -77,3 +79,5 @@
 .dropdown-options li:hover {
   background-color: #f0f0f0;
 }
+
+
