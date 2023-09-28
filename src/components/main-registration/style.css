@@ -62,6 +62,7 @@ input::placeholder{
     display: flex;
     gap: 44px;
 }
+/* Button Sign Up */
 .login-button{
     width: 190px;
     height: 65px;
@@ -71,6 +72,10 @@ input::placeholder{
     font-size: 20px;
     line-height: normal;
     margin-top: 90px;
+}
+.login-button.disabled {
+    opacity: 0.5; /* Наприклад, зменшення прозорості для візуального відображення неактивності */
+    pointer-events: none; /* Заборона спрацьовування подій для неактивної кнопки */
 }
 .password{
     width: 393px;

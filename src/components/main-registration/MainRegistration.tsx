@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
+import axios from 'axios';
 
 import user from '../../assets/register-page/user-profile.svg';
 import AgeDropDown from './AgeDropDown';
 
+type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  return emailRegex.test(email);
+}
+
 export default function MainRegistration() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
-  const [age, setAge] = useState<number | null>(null); 
+  const [age, setAge] = useState<number | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,15 +23,46 @@ export default function MainRegistration() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const [photo,setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
+  useEffect(() => {
+    const isValid =
+      !nameError &&
+      !emailError &&
+      !passwordError &&
+      name.length > 0 &&
+      surname.length > 0 &&
+      age !== null &&
+      email.length > 0 &&
+      password.length >= 6 &&
+      password.length <= 48;
 
-  const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    setIsButtonActive(isValid);
+  }, [nameError, emailError, passwordError, name, surname, age, email, password]);
 
-  const handleRegistration = (e:any) => {
+  const handleInputChange: ChangeHandler = ({ target }) => {
+    const { name, value } = target;
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'surname') {
+      setSurname(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+  }
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedPhoto = e.target.files?.[0] || null;
+    setPhoto(selectedPhoto);
+  };
+
+  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !surname || !age || !email || !password) {
-      alert('Please fill in all the required fields');
+
+    if (!isButtonActive) {
       return;
     }
 
@@ -34,30 +73,39 @@ export default function MainRegistration() {
       setNameError('');
     }
 
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       setEmailError('Invalid email format');
       return;
     } else {
       setEmailError('');
     }
 
-
     if (password.length < 6 || password.length > 48) {
-      setPasswordError('Password must be between 6 and 48 characters');
+      setPasswordError('Password must be between 6 and 48 characters')
       return;
     } else {
-      setPasswordError('');
+      setPasswordError('')
     }
 
-    console.log(`Name: ${name}`);
-    console.log(`Age: ${age}`);
-    console.log(`Email: ${email}`);
-    console.log(`Password: ${password}`);
-  };
+    try {
+      const formData = {
+        name,
+        surname,
+        email,
+        age,
+        password,
+      }
+      console.log(formData)
 
-  const handlePhotoUpload = (e:any) => {
-    const selectedPhoto = e.target.files[0];
-    setPhoto(selectedPhoto)
+      const response = await axios.post('https://example.com/api/login', formData);
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Data successful');
+      } else {
+        console.log('Data error');
+      }
+    } catch (error: any) {
+      console.error('Error', error.message);
+    }
   }
 
   return (
@@ -74,7 +122,7 @@ export default function MainRegistration() {
                 name="name"
                 placeholder="Enter name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleInputChange}
               />
               {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
               <label className="login-text">*Surname</label>
@@ -84,7 +132,7 @@ export default function MainRegistration() {
                 name="surname"
                 placeholder="Enter surname"
                 value={surname}
-                onChange={(e) => setSurname(e.target.value)}
+                onChange={handleInputChange}
               />
               <ul className="country-age">
                 <li className="country-age__item">
@@ -100,7 +148,7 @@ export default function MainRegistration() {
                 name="email"
                 placeholder="example@gmail.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInputChange}
               />
               {emailError && <div style={{ color: 'red' }}>{emailError}</div>}
               <label className="login-text">*Password</label>
@@ -110,23 +158,23 @@ export default function MainRegistration() {
                 name="password"
                 placeholder="6 to 48 characters"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleInputChange}
               />
               {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-              <button className="login-button button" type="submit">
+              <button className={`login-button button ${isButtonActive ? '' : 'disabled'}`} type="submit" disabled={!isButtonActive}>
                 Sign up
               </button>
             </div>
             <div className="register-form-photo">
               {photo ? (
                 <img className='user-profile' src={URL.createObjectURL(photo)} alt="" />
-              ):(
+              ) : (
                 <img className='user-profile' src={user} alt="" />
               )}
               <input
                 type="file"
                 accept="image/*"
-                id="fileInput" 
+                id="fileInput"
                 onChange={handlePhotoUpload}
                 style={{ display: 'none' }}
               />
@@ -136,10 +184,11 @@ export default function MainRegistration() {
                 onClick={() => {
                   const fileInput = document.getElementById('fileInput');
                   if (fileInput) {
-                    fileInput.click(); 
-                  }}}>
+                    fileInput.click();
+                  }
+                }}>
                 Add Photo
-                </button>
+              </button>
             </div>
           </form>
         </div>
