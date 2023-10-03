@@ -1,0 +1,48 @@
+.header-account{
+    width: 1920px;
+    background-color: #F8F9FA;
+    margin: 0 auto;
+}
+.header-account-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-account-list{
+    gap:82px;
+}
+.header-account-link__item{
+    font-family: 'Gilroy-Light', sans-serif;
+    color: #000;
+    font-size: 22px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.header-account-link__item:active{
+    color:#00B1B6;
+}
+
+.profile-info{
+    width: 261px;
+    height: 132px;
+    display: block;
+    text-align: center; 
+    align-items: center;
+    top: 50%; 
+    left: 50%; 
+    margin-right: 20px;
+}
+.info-title{
+    padding-top: 40px;
+    font-family: 'Gilroy-Bold', sans-serif;
+    font-size: 23px;
+}
+.info-balance-text{
+    font-family: 'Gilroy-Light', sans-serif;
+    color: #000;
+    font-size: 17px;
+    font-style: normal;
+    line-height: normal;
+}
+.bold{font-weight: bold;}

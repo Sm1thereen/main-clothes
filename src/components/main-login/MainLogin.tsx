@@ -2,6 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios';
 import './style.css'
 
+import {loginUser} from '../../services/api';
+
+
 function isValidEmail(email:string): boolean{
 	const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   	return re.test(String(email).toLowerCase());
@@ -57,37 +60,23 @@ export default function MainLogin() {
 		}
 	};
 
-	  const sendDataLoginToServer = async (email: string, password: string) => {
-		try {
-		  const formData = {
-			email: email,
-			password: password,
-		  };
-		  console.log(formData);
-	
-		  const response = await axios.post('https://example.com/api/login', formData);
-		  if (response.status >= 200 && response.status < 300) {
-			console.log('Login successful');
-		  } else {
-			console.log('Login error');
-		  }
-		} catch (error:any) {
-		  console.error('Error:', error.message);
-		}
-	  };
-	
 	  const handleSubmit = useCallback(
-		(event: React.FormEvent<HTMLFormElement>) => {
-		  event.preventDefault();
-		  if (!formValid) {
-			console.log('Form submission prevented due to errors');
-			return;
-		  }
-		  sendDataLoginToServer(email, password);
-		  setEmail('');
-		  setPassword('');
-		},
-		[email, password, formValid]
+		async (event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			if (!formValid) {
+			  console.log('Form submission prevented due to errors');
+			  return;
+			}
+			try {
+				const userData = await loginUser(email,password);
+				console.log('Login successful:',userData);
+				setEmail('');
+				setPassword('');
+			}catch (error:any){
+				console.error('Login error:',error.message)
+			}
+		}
+		,[email, password, formValid]
 	  );
 
 return (

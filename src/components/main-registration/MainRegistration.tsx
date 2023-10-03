@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './style.css';
 import axios from 'axios';
 
 import user from '../../assets/register-page/user-profile.svg';
 import AgeDropDown from './AgeDropDown';
+import { registrationUser } from '../../services/api';
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -13,10 +14,11 @@ function isValidEmail(email: string): boolean {
 }
 
 export default function MainRegistration() {
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [age, setAge] = useState<number | null>(null);
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
 
   const [nameError, setNameError] = useState('');
@@ -31,26 +33,28 @@ export default function MainRegistration() {
       !nameError &&
       !emailError &&
       !passwordError &&
-      name.length > 0 &&
-      surname.length > 0 &&
-      age !== null &&
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      // age !== null &&
       email.length > 0 &&
       password.length >= 6 &&
       password.length <= 48;
 
     setIsButtonActive(isValid);
-  }, [nameError, emailError, passwordError, name, surname, age, email, password]);
+  }, [nameError, emailError, passwordError, firstName, lastName, age, email, password]);
 
   const handleInputChange: ChangeHandler = ({ target }) => {
     const { name, value } = target;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'surname') {
-      setSurname(value);
+    if (name === 'firstName') {
+      setFirstName(value);
+    } else if (name === 'lastName') {
+      setLastName(value);
     } else if (name === 'email') {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
+    } else if (name === 'phone') {
+      setPhone(value);
     }
   }
 
@@ -59,14 +63,14 @@ export default function MainRegistration() {
     setPhoto(selectedPhoto);
   };
 
-  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleRegistration = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (!isButtonActive) {
       return;
     }
 
-    if (name.length < 2 || name.length > 30) {
+    if (firstName.length < 2 || lastName.length > 30) {
       setNameError('Name must be between 2 and 30 characters');
       return;
     } else {
@@ -88,25 +92,26 @@ export default function MainRegistration() {
     }
 
     try {
-      const formData = {
-        name,
-        surname,
-        email,
-        age,
-        password,
-      }
-      console.log(formData)
+      console.log(`Data to send to server`);
+      console.log('firstName:', firstName);
+      console.log('lastName:', lastName);
+      console.log('Email:', email);
+      console.log('Password:', password);
+      console.log('phone:', phone);
 
-      const response = await axios.post('https://example.com/api/login', formData);
-      if (response.status >= 200 && response.status < 300) {
-        console.log('Data successful');
-      } else {
-        console.log('Data error');
-      }
-    } catch (error: any) {
-      console.error('Error', error.message);
+      await registrationUser(firstName,lastName,email,password,phone);
+      // console.log('Registration successful');
+
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      setPhone('')
     }
-  }
+    catch (error:any){
+      console.error('Registration error',error.message);
+    }
+  },[firstName,lastName,email,password,phone]);
 
   return (
     <>
@@ -119,9 +124,9 @@ export default function MainRegistration() {
               <input
                 className="login-input"
                 type="text"
-                name="name"
+                name="firstName"
                 placeholder="Enter name"
-                value={name}
+                value={firstName}
                 onChange={handleInputChange}
               />
               {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
@@ -129,18 +134,27 @@ export default function MainRegistration() {
               <input
                 className="login-input"
                 type="text"
-                name="surname"
+                name="lastName"
                 placeholder="Enter surname"
-                value={surname}
+                value={lastName}
                 onChange={handleInputChange}
               />
-              <ul className="country-age">
+              <label className="login-text">*Phone</label>
+              <input
+                className="login-input"
+                type="text"
+                name="phone"
+                placeholder="Enter phone"
+                value={phone}
+                onChange={handleInputChange}
+              />
+              {/* <ul className="country-age">
                 <li className="country-age__item">
                   <label className="login-text">*Age</label>
                   <br />
                   <AgeDropDown age={age} setAge={setAge} />
                 </li>
-              </ul>
+              </ul> */}
               <label className="login-text">*Email</label>
               <input
                 className="login-input"
