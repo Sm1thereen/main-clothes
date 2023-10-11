@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './style.css';
-import axios from 'axios';
 
 import user from '../../assets/register-page/user-profile.svg';
-import AgeDropDown from './AgeDropDown';
 import { registrationUser } from '../../services/api';
+import { json } from 'stream/consumers';
+import setAccessToken from '../setAccessToken';
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -12,6 +12,8 @@ function isValidEmail(email: string): boolean {
   const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   return emailRegex.test(email);
 }
+
+
 
 export default function MainRegistration() {
   const [firstName, setFirstName] = useState('');
@@ -35,7 +37,6 @@ export default function MainRegistration() {
       !passwordError &&
       firstName.length > 0 &&
       lastName.length > 0 &&
-      // age !== null &&
       email.length > 0 &&
       password.length >= 6 &&
       password.length <= 48;
@@ -98,9 +99,8 @@ export default function MainRegistration() {
       console.log('Email:', email);
       console.log('Password:', password);
       console.log('phone:', phone);
-
-      await registrationUser(firstName,lastName,email,password,phone);
-      // console.log('Registration successful');
+      const response = await registrationUser(firstName, lastName, email, password, phone);
+      setAccessToken(response);
 
       setFirstName('');
       setLastName('');
@@ -108,10 +108,10 @@ export default function MainRegistration() {
       setPassword('');
       setPhone('')
     }
-    catch (error:any){
-      console.error('Registration error',error.message);
+    catch (error: any) {
+      console.error('Registration error', error.message);
     }
-  },[firstName,lastName,email,password,phone]);
+  }, [firstName, lastName, email, password, phone]);
 
   return (
     <>
@@ -148,6 +148,7 @@ export default function MainRegistration() {
                 value={phone}
                 onChange={handleInputChange}
               />
+
               {/* <ul className="country-age">
                 <li className="country-age__item">
                   <label className="login-text">*Age</label>
@@ -185,6 +186,7 @@ export default function MainRegistration() {
               ) : (
                 <img className='user-profile' src={user} alt="" />
               )}
+
               <input
                 type="file"
                 accept="image/*"

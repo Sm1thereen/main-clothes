@@ -1,7 +1,4 @@
-import React from 'react'
-
 import './style.css';
-
 import logo from '../../../assets/logo.svg';
 import UK from '../../../assets/main-page/flag/English.svg';
 import PL from '../../../assets/main-page/flag/Polish.svg';
@@ -10,13 +7,13 @@ import { Link } from 'react-router-dom';
 
 
 export default function HeaderRegistration() {
-  return (
-    <header className="header">
+    return (
+        <header className="header">
             <ul className="header-list">
                 <li className="header-list__item">
-                  <Link to="/">
-                    <img src={logo} alt="" />
-                  </Link>
+                    <Link to="/">
+                        <img src={logo} alt="" />
+                    </Link>
                 </li>
                 <li className="header-list__item">
                     <ul className="header-language">
@@ -32,13 +29,13 @@ export default function HeaderRegistration() {
                             <img src={stroke} alt="" />
                         </li>
                         <li className="header-language__item">
-                        <button>
+                            <button>
                                 <img src={PL} alt="" />
                             </button>
                         </li>
-                    </ul> 
+                    </ul>
                 </li>
             </ul>
         </header>
-  )
+    )
 }

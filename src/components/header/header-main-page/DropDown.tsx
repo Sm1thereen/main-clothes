@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import EnglishFlag from '../../../assets/main-page/flag/English.svg';
 import PolishFlag from '../../../assets/main-page/flag/Polish.svg';
 

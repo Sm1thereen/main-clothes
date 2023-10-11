@@ -1,43 +1,49 @@
-
-
-.profile-container{
+.profile-container {
     width: 1200px;
     height: 901px;
-    background-color:#F8F9FA;
+    background-color: #F8F9FA;
     margin: 0 auto;
 }
-.center{
+
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 /* Profile bio */
-.profile-info-account{
-    width: 1018px;
-    height: 534px;
+.profile-bio {
+    display: flex;
+    width: 1017px;
+    height: 585px;
+    margin: 30px 100px 0 100px;
 }
-.user-info-wrapper{
-    margin: 49px 0 120px 82px;
-    width: 518px;
-    height: 563px;
+
+.user-info-wrapper {
+    width: 509px;
 }
-.user-info{
+
+.user-info {
     width: 446px;
-    height: 233px;
+    height: 170px;
 }
-.profile-bio-info{
+
+.profile-bio-info {
     width: 300px;
     height: 114px;
     margin-bottom: 76px;
+    margin-top: 110px;
 }
-.profile-title{
+
+.profile-title {
     font-size: 55px;
-    color:#000;
+    color: #000;
     font-family: 'GT Eesti Display Trial', sans-serif;
     font-style: normal;
     font-weight: 500;
 }
-.profile-balance{
+
+.profile-balance {
     font-size: 25px;
     font-family: 'Gilroy-Light', sans-serif;
     color: #000;
@@ -45,7 +51,8 @@
     font-weight: 300;
     line-height: normal;
 }
-.profile-location{
+
+.profile-location {
     display: flex;
     gap: 30px;
     font-size: 25px;
@@ -55,29 +62,110 @@
     font-weight: 300;
     line-height: normal;
 }
-.stroke-info{
+
+.stroke-info {
     width: 300px;
 }
 
 /* Contacts */
-.contacts-info{
+.contacts-info {
     width: 314px;
     height: 234px;
 }
-.contacts-title{
-    color:#000;
+
+.contacts-title {
+    color: #000;
     text-transform: uppercase;
     font-family: 'GT Eesti Display Trial', sans-serif;
     font-size: 25px;
     font-weight: 500;
+    margin-bottom: 20px;
 }
-.social-info{
-    gap:40px
-}
-.social-info__link{
-    color:#000;
+
+.social-info__link {
+    display: flex;
+    align-items: center;
+    color: #000;
     font-family: 'Gilroy-Light', sans-serif;
     font-size: 18px;
     line-height: normal;
+    gap: 10px;
+    margin-bottom: 35px;
 }
 
+/* User Photo */
+.user-photo {
+    width: 509px;
+    height: 585px;
+}
+
+.user-photo-wrapper {
+    width: 447px;
+    height: 534px;
+    margin: 0 auto;
+}
+
+.user-icon-wrapper {
+    margin: 0 auto;
+    width: 447px;
+    height: 447px;
+}
+
+.user-icon {
+    display: flex;
+    align-items: center;
+    padding: 81px;
+}
+
+.user-button {
+    width: 447px;
+    height: 72px;
+    border: 1px solid #00B1B6;
+    color: #000;
+    font-family: 'GT Eesti Display Trial', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.user-button {
+    margin: 0 auto;
+}
+
+/* Change info */
+.stroke-center {
+    margin-left: 92px
+}
+
+.change-info-wrapper {
+    width: 1200px;
+    height: 272px;
+    display: flex;
+}
+
+.change-info-email {
+    width: 600px;
+    height: 272px;
+}
+
+.change-info-password {
+    width: 600px;
+    height: 272px;
+}
+
+.change {
+    width: 400px;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.change-info-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 400px;
+}

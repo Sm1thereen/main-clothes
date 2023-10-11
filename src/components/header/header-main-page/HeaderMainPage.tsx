@@ -9,28 +9,25 @@ import './style.css';
 
 export default function Header() {
   const defaultLanguage = 'English';
-
   const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-  const handleOptionSelect = (selectedOption:any) => {
+  const handleOptionSelect = (selectedOption: any) => {
     if (selectedOption !== selectedLanguage) {
       setSelectedLanguage(selectedOption);
     }
-    
+
     setIsDropDownOpen(false);
   };
-
   const languageOptions = selectedLanguage === 'English'
     ? [
-        { label: 'Polish', flag: PolishFlag }
-      ]
+      { label: 'Polish', flag: PolishFlag }
+    ]
     : [
-        { label: 'English', flag: EnglishFlag }
-      ];
+      { label: 'English', flag: EnglishFlag }
+    ];
 
   return (
-    
     <header className="header">
       <ul className="header-list">
         <li className="header-list__item">

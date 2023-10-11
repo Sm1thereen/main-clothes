@@ -1,4 +1,3 @@
-import React from 'react'
 import './style.css'
 import sellItFast from '../../assets/main-page/main-content/sell-it-fast.svg';
 import arrows from '../../assets/main-page/main-content/arrows.svg';
@@ -17,37 +16,37 @@ export default function MainContent() {
         <section className="place-for-cell">
           <div className="card-container">
             <img className='arrow-img' src={arrows} alt="" />
-              <div className="card-wrapper">
-                <ul className="card-list">
-                  <li className="card-list-item">
-                      <img src={photoCard} alt="" />
-                    <div className="request-label">
-                        <img className='text-card' src={photoText} alt="" />
-                    </div>
-                  </li>
-                  <li className="card-list-item second">
-                    <img src={request} alt="" />
-                    <div className="request-label">
-                        <img className='text-card' src={requestText} alt="" />
-                    </div>
-                  </li>
-                  <li className="card-list-item">
+            <div className="card-wrapper">
+              <ul className="card-list">
+                <li className="card-list-item">
+                  <img src={photoCard} alt="" />
+                  <div className="request-label">
+                    <img className='text-card' src={photoText} alt="" />
+                  </div>
+                </li>
+                <li className="card-list-item second">
+                  <img src={request} alt="" />
+                  <div className="request-label">
+                    <img className='text-card' src={requestText} alt="" />
+                  </div>
+                </li>
+                <li className="card-list-item">
                   <img src={getMoneyCard} alt="" />
-                    <div className="request-label">
-                        <img className='text-card' src={getMoneyText} alt="" />           
-                    </div>
-                  </li>
-                </ul>
-              </div>
-          </div>
-            <div className="sell-container">
-              <p className='text-sell-item'>
-                Place for sell your clothes
-              </p>
-              <button className="sell-button button">
-                  sell
-              </button>
+                  <div className="request-label">
+                    <img className='text-card' src={getMoneyText} alt="" />
+                  </div>
+                </li>
+              </ul>
             </div>
+          </div>
+          <div className="sell-container">
+            <p className='text-sell-item'>
+              Place for sell your clothes
+            </p>
+            <button className="sell-button button">
+              sell
+            </button>
+          </div>
         </section>
       </main>
     </div>
